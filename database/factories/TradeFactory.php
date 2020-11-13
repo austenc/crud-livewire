@@ -24,7 +24,7 @@ class TradeFactory extends Factory
         return [
             'symbol' => $this->faker->lexify('????'),
             'size' => $this->faker->numberBetween(10, 1000),
-            'entry_price' => $this->faker->numberBetween(10, 100000),
+            'entry_price' => $this->faker->numberBetween(10, 10000),
             'entry_at' => $this->faker->dateTimeInInterval('-5 years', '5 years'),
         ];
     }
@@ -32,7 +32,7 @@ class TradeFactory extends Factory
     public function exited()
     {
         return $this->state(fn (array $attributes) => [
-            'exit_price' => $this->faker->numberBetween(10, 100000),
+            'exit_price' => $this->faker->numberBetween(10, 10000),
             'exit_at' => $this->faker->dateTimeInInterval('-1 month', '1 month')
         ]);
     }

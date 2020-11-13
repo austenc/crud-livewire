@@ -16,7 +16,7 @@ class TradeSeeder extends Seeder
      */
     public function run()
     {
-        Trade::factory()->count($this->total)->create();
+        Trade::factory()->count($this->total / 2)->create();
         Trade::factory()->exited()->count($this->total)->create();
         Trade::factory()->short()->exited()->count($this->total)->create();
     }
