@@ -10,14 +10,45 @@ class Trades extends Component
 {
     use WithPagination;
 
-    public function getTradesProperty()
-    {
-        return Trade::paginate(10);
-    }
+    public $editing;
+    protected $listeners = [
+        'tradeUpdated',
+        'refreshTrades' => '$refresh',
+    ];
 
     public function delete($trade)
     {
-        $this->trades->find($trade)->delete();
-        $this->trades = Trade::paginate(10);
+        Trade::findOrFail($trade)->delete();
+    }
+    public function tradesQuery()
+    {
+        return Trade::orderBy('created_at', 'desc');
+    }
+
+    public function getTradesProperty()
+    {
+        return $this->tradesQuery()->paginate(10);
+    }
+
+    public function edit(Trade $trade)
+    {
+        if ($trade->is($this->editing)) {
+            $this->reset('editing');
+            return;
+        }
+        
+        $this->editing = $trade;
+    }
+
+    public function tradeUpdated($trade)
+    {
+        $this->editing = null;
+    }
+
+    public function render()
+    {
+        return view('livewire.trades', [
+            'trades' => $this->trades
+        ]);
     }
 }

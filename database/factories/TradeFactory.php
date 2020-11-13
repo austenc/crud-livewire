@@ -39,6 +39,6 @@ class TradeFactory extends Factory
 
     public function short()
     {
-        return $this->state(fn ($attributes) => ['side' => 'short']);
+        return $this->state(fn ($attributes) => ['is_short' => true]);
     }
 }

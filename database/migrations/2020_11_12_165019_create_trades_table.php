@@ -17,7 +17,7 @@ class CreateTradesTable extends Migration
             $table->id();
             $table->string('symbol');
             $table->integer('size');
-            $table->string('side')->default('long');
+            $table->boolean('is_short')->nullable()->default(false);
             $table->bigInteger('entry_price');
             $table->bigInteger('exit_price')->nullable();
             $table->timestamp('entry_at')->nullable();
